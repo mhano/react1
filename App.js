@@ -4,6 +4,8 @@ import Expo, { Accelerometer, } from 'expo';
 import { BarChart2 } from './components/BarChart2';
 import { Grid2 } from './components/Grid2';
 import { AccelerometerData } from './classes/AccelerometerData.js';
+import { BouncyBox } from './components/BouncyBox';
+import { LineChart } from './components/LineChart';
 
 export default class App extends React.Component {
   state = {
@@ -53,7 +55,6 @@ export default class App extends React.Component {
 	  
 	  if(!curr.equals(this.lastVal)) {
 		this.lastVal = curr;
-		this.state.updateCount++;
 		this.setState({accelerometerData: curr});
 	  }
     });
@@ -66,6 +67,7 @@ export default class App extends React.Component {
   
   
   render() {
+	this.state.updateCount++;
     let { x, y, z } = this.state.accelerometerData;
 	let isFast = this.state.isFast;
 	let isRunning = this.state.isRunning;
@@ -76,8 +78,9 @@ export default class App extends React.Component {
 	
     return (
       <View style={styles.sensor}>
-		<Text> </Text>
-        <Text>Accelerometer:</Text>
+		<View style={styles.footer}>
+			<Text style={{ fontWeight: 'bold' }}>Accelerometer</Text>
+		</View>
 		<View style={styles.barContainer}>
 			<BarChart2
 			  dataSets={[
@@ -106,21 +109,22 @@ export default class App extends React.Component {
 			  showGrid={true}
 			  barSpacing={5}
 			  style={{
-				height: 300,
+				height: 190,
 				margin: 15,
+				marginTop: 25,
 				marginBottom: 0,
 			  }} />
 		</View>
 		
 		<View style={styles.buttonContainer}>
 			<View style={styles.firstDataValue} backgroundColor={x > 0 ? '#e24941' : '#41a7e1'}>
-				<Text>x: {displayRound(x)}</Text>
+				<Text> X:  {displayRound(x)}</Text>
 			</View>
 			<View style={styles.dataValue} backgroundColor={y > 0 ? '#e24941' : '#41a7e1'}>
-				<Text>y: {displayRound(y)}</Text>
+				<Text> Y:  {displayRound(y)}</Text>
 			</View>
 			<View style={styles.dataValue} backgroundColor={z > 0 ? '#e24941' : '#41a7e1'}>
-				<Text>z: {displayRound(z)}</Text>
+				<Text> Z:  {displayRound(z)}</Text>
 			</View>
 		</View>
 		
@@ -137,7 +141,11 @@ export default class App extends React.Component {
         </View>
 		
 		<View style={styles.footer}>
-			<Text>Updates: {updateCount}</Text>
+			<Text>AppView Updates: {updateCount}</Text>
+		</View>
+		
+		<View style={styles.chartContainer}>
+			<BouncyBox fast={isFast} />
 		</View>
 		
       </View>
@@ -167,6 +175,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  chartContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 35,
   },
   footer: {
     flex: 1,
