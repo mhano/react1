@@ -10,7 +10,7 @@ export class LineChart extends React.Component {
 	
 	constructor() {
 		super();
-		setInterval(this.update, 1000);
+		//setInterval(this.update, 1000);
 	};
 	
 	update = () => {

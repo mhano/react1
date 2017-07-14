@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "react1",
-    "description": "An empty new project",
+    "description": "A react-native playground",
     "slug": "react1",
     "privacy": "public",
     "sdkVersion": "18.0.0",
@@ -11,7 +11,7 @@
     "icon": "./assets/icons/app.png",
     "loading": {
       "icon": "./assets/icons/loading.png",
-      "hideExponentText": false
+      "hideExponentText": true
     },
     "packagerOpts": {
       "assetExts": ["ttf", "mp4"]
